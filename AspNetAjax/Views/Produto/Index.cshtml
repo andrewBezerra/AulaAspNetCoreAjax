@@ -1,0 +1,72 @@
+﻿@model IEnumerable<AspNetAjax.Models.Produto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@section styles{
+
+
+    <link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+}
+@section scripts{
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $('.tabela').DataTable({
+            "language": {
+                "url": " https://cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json"
+            }
+        });
+    </script>
+}
+
+<h1>Lista de Produtos</h1>
+
+<p>
+    <a asp-action="Adicionar"
+       data-ajax="true"
+       data-ajax-mode="replace"
+       data-ajax-update="#conteudo" 
+       class="btn btn-outline-primary">Novo Produto</a>
+</p>
+<table class="table table-hover table-striped tabela">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preco)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Preco)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Editar", new { id = item.ID }) |
+                    @Html.ActionLink("Detalhes", "Detalhes", new { id = item.ID }) |
+                    @Html.ActionLink("Apagar", "Apagar", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $('.tabela').DataTable({
+        "language": {
+            "url": " https://cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json"
+        }
+    });
+</script>
+
